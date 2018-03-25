@@ -6,3 +6,4 @@ Implement the method of "bubble" sorting of the integer array ("jagged" array) (
 - in the order of increasing (decreasing) sums of elements of rows of the matrix;
 - in order of increasing (decreasing) the maximum elements of rows of the matrix;
 - in order of increasing (decreasing) the minimum elements of rows of the matrix.
+Develop unit-tests (NUnit framework).
