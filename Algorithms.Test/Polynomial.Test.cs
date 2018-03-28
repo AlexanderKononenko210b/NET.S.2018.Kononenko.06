@@ -100,9 +100,9 @@ namespace UnitTestAlgorithms
 
             var polynomialSecond = new Polynomial(inputCoefficientArraySecond);
 
-            var resultSumm = polynomialFirst * polynomialSecond;
+            var resultMultiply = polynomialFirst * polynomialSecond;
 
-            Assert.AreEqual(resultSumm.GetHashCode(), new Polynomial(result).GetHashCode());
+            Assert.AreEqual(resultMultiply.GetHashCode(), new Polynomial(result).GetHashCode());
         }
 
         /// <summary>

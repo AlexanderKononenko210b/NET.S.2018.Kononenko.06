@@ -8,33 +8,44 @@ namespace Algorithms
 
     public sealed class Polynomial
     {
-        private const double EPSILON = double.Epsilon;
+        private readonly double[] coefficients = { };
 
-        private double[][] coefficients;
+        private readonly int[] orders = { };
+
+        private readonly int degree;
+
+        public static readonly double Accuracy;
 
         /// <summary>
         /// Degree of Polynomial
         /// </summary>
-        public int Degree { get; }
-
-        /// <summary>
-        /// Jagged array for coefficients
-        /// </summary>
-        public double[][] Coefficients
+        public int Degree
         {
             get
             {
-                if (coefficients == null)
-                {
-                    coefficients = new double[1][];
-                }
-
-                return coefficients;
+                return degree;
             }
+        }
 
-            set
+        /// <summary>
+        /// Array for coefficients
+        /// </summary>
+        public double[] Coefficients
+        {
+            get
             {
-                coefficients = value;
+                return coefficients.Clone() as double[];
+            }
+        }
+
+        /// <summary>
+        /// Array for orders
+        /// </summary>
+        public int[] Orders
+        {
+            get
+            {
+                return orders.Clone() as int[];
             }
         }
 
@@ -44,10 +55,49 @@ namespace Algorithms
         /// <param name="inputArrayCoefficient">input array of coefficients</param>
         public Polynomial(double[] inputArrayCoefficient)
         {
-            this.Coefficients[0] = inputArrayCoefficient;
+            var inputArrayHelperCoefficient = new double[inputArrayCoefficient.Length];
 
-            this.Degree = Coefficients[0].Length - 1;
+            var inputArrayHelperOrder = new int[inputArrayCoefficient.Length];
+
+            int indexHelperArray = 0;
+
+            for (int i = 0; i < inputArrayCoefficient.Length; i++)
+            {
+                if (Math.Abs(inputArrayCoefficient[i]) > Accuracy)
+                {
+                    inputArrayHelperCoefficient[indexHelperArray] = inputArrayCoefficient[i];
+
+                    inputArrayHelperOrder[indexHelperArray] = i;
+
+                    indexHelperArray++;
+                }
+            }
+
+            this.coefficients = inputArrayHelperCoefficient;
+
+            this.orders = inputArrayHelperOrder;
+
+            this.degree = this.Orders[indexHelperArray-1];
         }
+
+        /// <summary>
+        /// Static constructor Polynomial
+        /// </summary>
+        static Polynomial()
+        {
+            try
+            {
+                var appSettingsReader = new System.Configuration.AppSettingsReader();
+
+                Accuracy = (double)appSettingsReader.GetValue("accuracy", typeof(double));
+            }
+            catch(Exception)
+            {
+                Accuracy = 0.000001;
+            }
+        }
+
+
 
         /// <summary>
         /// Override method ToSring class object
@@ -55,46 +105,72 @@ namespace Algorithms
         /// <returns>string performance object</returns>
         public override string ToString()
         {
-            if (this.Coefficients[0].Length == 0 || this.Coefficients[0].Length == 1)
+            if (this.Coefficients.Length == 0 || this.Coefficients.Length == 1)
             {
-                throw new ArgumentOutOfRangeException($"Array of coefficients mast have > 1 elements");
+                throw new ArgumentOutOfRangeException($"Array of coefficients must have > 1 elements");
             }
 
             StringBuilder helperForToString = new StringBuilder();
 
-            helperForToString.Append($"{Coefficients[0][0]}");
+            helperForToString.Append($"{Coefficients[0]}");
 
-            for (int i = 1; i < Coefficients[0].Length; i++)
+            for (int i = 1; i < Coefficients.Length; i++)
             {
-                helperForToString.Append($" {Coefficients[0][i]}*x^{i}");
+                helperForToString.Append($" {Coefficients[i]}*x^{Orders[i]}");
             }
 
             return helperForToString.ToString();
         }
 
         /// <summary>
-        /// Override method Equals for two object Polynomial
+        /// Override method Equals for two Polynomial
         /// </summary>
         /// <param name="obj">second object for operation equals</param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public bool Equals(Polynomial polynomial)
         {
-            var secondPolynomialForEquals = obj as Polynomial;
-
-            if (secondPolynomialForEquals?.Degree != this.Degree)
-            {
+            if (ReferenceEquals(null, polynomial))
                 return false;
-            }
 
-            for (int i = 0; i <= this.Degree; i++)
+            if (ReferenceEquals(this, polynomial))
+                return false;
+
+            if (this.Orders.Length != polynomial.Orders.Length)
+                return false;
+
+            if (this.Degree != polynomial.Degree)
+                return false;
+
+            for(int i = 0; i < this.Orders.Length; i++)
             {
-                if (Math.Abs(this.Coefficients[0][i] - secondPolynomialForEquals.Coefficients[0][i]) > EPSILON)
+                if(this.Orders[i] == polynomial.Orders[i])
+                {
+                    if (this.Coefficients[i] != polynomial.Coefficients[i])
+                        return false;
+                }
+                else
                 {
                     return false;
                 }
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Override method Equals for two object
+        /// </summary>
+        /// <param name="obj">second object for operation equals</param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+
+            if (ReferenceEquals(this, obj)) return false;
+
+            if (obj.GetType() != this.GetType()) return false;
+
+            return Equals((Polynomial) obj);
         }
 
         /// <summary>
@@ -109,7 +185,7 @@ namespace Algorithms
             {
                 checked
                 {
-                    hashCode *= (int)Math.Abs(this.Coefficients[0][i]);
+                    hashCode *= (int)Math.Abs(this.Coefficients[i]);
                 }
             }
 
@@ -122,29 +198,26 @@ namespace Algorithms
         /// <param name="first">first object type Polynomial</param>
         /// <param name="second">second object type Polynomial</param>
         /// <returns>result object Polynomial</returns>
-        public static Polynomial operator +(Polynomial first, Polynomial second)
+        public static  Polynomial operator +(Polynomial first, Polynomial second)
         {
-            var degreeResultMin = (first.Degree < second.Degree) ? first.Degree : second.Degree;
-
-            var degreeResulMax = (first.Degree > second.Degree) ? first.Degree : second.Degree;
-
-            var resultArray = new double[degreeResulMax + 1];
-
-            for (int i = 0; i <= degreeResultMin; i++)
+            if (first == null)
             {
-                resultArray[i] = first.Coefficients[0][i] + second.Coefficients[0][i];
+                throw new ArgumentNullException($"Argument {nameof(first)} is null");
             }
 
-            if (first.Degree == second.Degree)
+            if (second == null)
             {
-                if (first.Degree < second.Degree)
-                    Array.Copy(second.Coefficients[0], degreeResultMin + 1, resultArray, degreeResultMin + 1, second.Coefficients[0].Length - resultArray.Length);
-                else
-                    Array.Copy(first.Coefficients[0], degreeResultMin + 1, resultArray, degreeResultMin + 1, second.Coefficients[0].Length - resultArray.Length);
+                throw new ArgumentNullException($"Argument {nameof(second)} is null");
             }
 
-            return new Polynomial(resultArray);
+            var resultArray = AdditionAndSubtractionHelper(first.Coefficients, first.Orders, second.Coefficients, second.Orders);
+
+            var resultPolynomial = new Polynomial(resultArray);
+
+            return resultPolynomial;
         }
+
+
 
         /// <summary>
         /// Method for override operation -
@@ -152,28 +225,113 @@ namespace Algorithms
         /// <param name="first">first object type Polynomial</param>
         /// <param name="second">second object type Polynomial</param>
         /// <returns>result object Polynomial</returns>
-        public static Polynomial operator -(Polynomial first, Polynomial second)
+        public static Polynomial operator - (Polynomial first, Polynomial second)
         {
-            var degreeResultMin = (first.Degree < second.Degree) ? first.Degree : second.Degree;
-
-            var degreeResulMax = (first.Degree > second.Degree) ? first.Degree : second.Degree;
-
-            var resultArray = new double[degreeResulMax + 1];
-
-            for(int i = 0; i <= degreeResultMin; i++)
+            if(first == null)
             {
-                resultArray[i] = first.Coefficients[0][i] - second.Coefficients[0][i];
+                throw new ArgumentNullException($"Argument {nameof(first)} is null");
             }
 
-            if(first.Degree == second.Degree)
+            if (second == null)
             {
-                if (first.Degree < second.Degree)
-                    Array.Copy(second.Coefficients[0], degreeResultMin + 1, resultArray, degreeResultMin + 1, second.Coefficients[0].Length - resultArray.Length);
+                throw new ArgumentNullException($"Argument {nameof(second)} is null");
+            }
+
+            var secondOther = second.Coefficients.Clone() as double[];
+
+            for(int i = 0; i < second.Orders.Length; i++)
+            {
+                secondOther[i] = - secondOther[i];
+            }
+
+            var resultArray = AdditionAndSubtractionHelper(first.Coefficients, first.Orders, secondOther, second.Orders);
+
+            var resultPolynomial = new Polynomial(resultArray);
+
+            return resultPolynomial;
+        }
+
+        /// <summary>
+        /// Helper method for operation + and -
+        /// </summary>
+        /// <param name="first">first object type Polynomial</param>
+        /// <param name="second">second object type Polynomial</param>
+        /// <returns>result double[]</returns>
+        private static double[] AdditionAndSubtractionHelper(double[] firstCoefficients, int[] firstOrders, double[] secondCoefficients, int[] secondOrders)
+        {
+            var maxDegree = (firstOrders.Length > secondOrders.Length) ? firstOrders.Length : secondOrders.Length;
+
+            var helperArrayCoefficients = new double[maxDegree + 1];
+
+            int indexFirst = 0, indexSecond = 0;
+
+            for (int i = 0; i < helperArrayCoefficients.Length; i++)
+            {
+                if(indexFirst < firstCoefficients.Length && indexSecond < secondCoefficients.Length)
+                {
+                    if (i == firstOrders[indexFirst] && i == secondOrders[indexSecond])
+                    {
+                        helperArrayCoefficients[i] = firstCoefficients[indexFirst] + secondCoefficients[indexSecond];
+                        indexFirst++; indexSecond++;
+                    }
+                    else
+                    {
+                        if (i != firstOrders[indexFirst] && i == secondOrders[indexSecond])
+                        {
+                            helperArrayCoefficients[i] = + secondCoefficients[indexSecond];
+                            indexSecond++;
+                        }
+                        else
+                        {
+                            if (i == firstOrders[indexFirst] && i != secondOrders[indexSecond])
+                            {
+                                helperArrayCoefficients[indexFirst] = firstCoefficients[i];
+                                indexFirst++;
+                            }
+                            else
+                            {
+                                helperArrayCoefficients[i] = 0;
+                            }
+                        }
+                    }
+                }
                 else
-                    Array.Copy(first.Coefficients[0], degreeResultMin + 1, resultArray, degreeResultMin + 1, second.Coefficients[0].Length - resultArray.Length);
+                {
+                    if (i < firstCoefficients.Length && i >= secondCoefficients.Length)
+                    {
+                        if (i == firstOrders[indexFirst])
+                        {
+                            helperArrayCoefficients[i] = firstCoefficients[indexFirst];
+                            indexFirst++;
+                        }
+                        else
+                        {
+                            helperArrayCoefficients[i] = 0;
+                        }
+                    }
+                    else
+                    {
+                        if (i >= firstCoefficients.Length && i < secondCoefficients.Length)
+                        {
+                            if (i == secondOrders[indexSecond])
+                            {
+                                helperArrayCoefficients[i] = secondCoefficients[indexSecond];
+                                indexSecond++;
+                            }
+                            else
+                            {
+                                helperArrayCoefficients[i] = 0;
+                            }
+                        }
+                        else
+                        {
+                            helperArrayCoefficients[i] = 0;
+                        }
+                    }
+                }
             }
 
-            return new Polynomial(resultArray);
+            return helperArrayCoefficients;
         }
 
         /// <summary>
@@ -184,26 +342,65 @@ namespace Algorithms
         /// <returns>result object Polynomial</returns>
         public static Polynomial operator *(Polynomial first, Polynomial second)
         {
-            var degreeResultMin = (first.Degree < second.Degree) ? first.Degree : second.Degree;
+            var maxDegree = (first.Orders.Length > second.Orders.Length) ? first.Orders.Length : second.Orders.Length;
 
-            var degreeResulMax = (first.Degree > second.Degree) ? first.Degree : second.Degree;
+            var helperArrayCoefficients = new double[maxDegree + 1];
 
-            var resultArray = new double[degreeResulMax + 1];
+            int indexFirst = 0, indexSecond = 0;
 
-            for (int i = 0; i <= degreeResultMin; i++)
+            for (int i = 0; i < helperArrayCoefficients.Length; i++)
             {
-                resultArray[i] = first.Coefficients[0][i] * second.Coefficients[0][i];
-            }
+                if (indexFirst < first.Coefficients.Length && indexSecond < second.Coefficients.Length)
+                {
+                    if (i == first.Orders[indexFirst] && i == second.Orders[indexSecond])
+                    {
+                        helperArrayCoefficients[i] = first.Coefficients[indexFirst] * second.Coefficients[indexSecond];
+                        indexFirst++; indexSecond++;
+                    }
+                    else
+                    {
+                        if (i != first.Orders[indexFirst] && i == second.Orders[indexSecond])
+                        {
+                            indexSecond++;
+                        }
+                        else
+                        {
+                            if (i == first.Orders[indexFirst] && i != second.Orders[indexSecond])
+                            {
+                                indexFirst++;
+                            }
+                        }
 
-            if (first.Degree == second.Degree)
-            {
-                if (first.Degree < second.Degree)
-                    Array.Copy(second.Coefficients[0], degreeResultMin + 1, resultArray, degreeResultMin + 1, second.Coefficients[0].Length - resultArray.Length);
+                        helperArrayCoefficients[i] = 0;
+                    }
+                }
                 else
-                    Array.Copy(first.Coefficients[0], degreeResultMin + 1, resultArray, degreeResultMin + 1, second.Coefficients[0].Length - resultArray.Length);
+                {
+                    if (i < first.Coefficients.Length && i >= second.Coefficients.Length)
+                    {
+                        if (i == first.Orders[indexFirst])
+                        {
+                            indexFirst++;
+                        }
+                    }
+                    else
+                    {
+                        if (i >= first.Coefficients.Length && i < second.Coefficients.Length)
+                        {
+                            if (i == second.Orders[indexSecond])
+                            {
+                                indexSecond++;
+                            }
+                        }
+                    }
+
+                    helperArrayCoefficients[i] = 0;
+                }
             }
 
-            return new Polynomial(resultArray);
+            var resultPolynomial = new Polynomial(helperArrayCoefficients);
+
+            return resultPolynomial;
         }
     }
 
