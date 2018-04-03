@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Algorithms;
 
-namespace UnitTestAlgorithms
+namespace Algorithms.Test
 {
     /// <summary>
     /// Class for test sort jagged massive
@@ -10,19 +10,23 @@ namespace UnitTestAlgorithms
     [TestFixture]
     public class AlgorithmsForTasks
     {
+        #region TestWithValidData
+
         /// <summary>
         /// Method for test method SortSummElementAscendArray with valid data
         /// </summary>
         [Test]
         public void SortSummElementAscendArray_With_Valid_Data()
         {
-            var inputArray = MethodsForAlgorithms.GetJaggedArray();
+            var inputArray = HelperSort.GetJaggedArray();
 
-            MethodsForAlgorithms.SortSummElementAscendArray(inputArray);
+            var comparer =  new SortSummElementAscendArray();
 
-            var outputSummRowArray = MethodsForAlgorithms.SortSummDescendHelper(inputArray).Item2;
+            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
 
-            Assert.IsTrue(MethodsForAlgorithms.SortSummAscendHelper(inputArray).Item1);
+            var outputSummRowArray = HelperSort.SortSummAscendHelper(inputArray).Item2;
+
+            Assert.IsTrue(HelperSort.SortSummAscendHelper(inputArray).Item1);
         }
 
         /// <summary>
@@ -32,13 +36,15 @@ namespace UnitTestAlgorithms
         [Test]
         public void SortSummElementDescendArray_With_Valid_Data()
         {
-            var inputArray = MethodsForAlgorithms.GetJaggedArray();
+            var inputArray = HelperSort.GetJaggedArray();
 
-            MethodsForAlgorithms.SortSummElementDescendArray(inputArray);
+            var comparer = new SortSummElementDescendArray();
 
-            var outputSummRowArray = MethodsForAlgorithms.SortSummDescendHelper(inputArray).Item2;
+            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
 
-            Assert.IsTrue(MethodsForAlgorithms.SortSummDescendHelper(inputArray).Item1);
+            var outputSummRowArray = HelperSort.SortSummDescendHelper(inputArray).Item2;
+
+            Assert.IsTrue(HelperSort.SortSummDescendHelper(inputArray).Item1);
         }
 
         /// <summary>
@@ -47,13 +53,15 @@ namespace UnitTestAlgorithms
         [Test]
         public void SortMaxElementAscendArray_With_Valid_Data()
         {
-            var inputArray = MethodsForAlgorithms.GetJaggedArray();
+            var inputArray = HelperSort.GetJaggedArray();
 
-            MethodsForAlgorithms.SortMaxElementAscendArray(inputArray);
+            var comparer = new SortMaxElementAscendArray();
 
-            var outputMaxRowArray = MethodsForAlgorithms.SortSummDescendHelper(inputArray).Item2;
+            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
 
-            Assert.IsTrue(MethodsForAlgorithms.SortMaxElementAscendHelper(inputArray).Item1);
+            var outputMaxElementRowArray = HelperSort.SortMaxElementAscendHelper(inputArray).Item2;
+
+            Assert.IsTrue(HelperSort.SortMaxElementAscendHelper(inputArray).Item1);
         }
 
         /// <summary>
@@ -62,13 +70,15 @@ namespace UnitTestAlgorithms
         [Test]
         public void SortMaxElementDescendArray_With_Valid_Data()
         {
-            var inputArray = MethodsForAlgorithms.GetJaggedArray();
+            var inputArray = HelperSort.GetJaggedArray();
 
-            MethodsForAlgorithms.SortMaxElementDescendArray(inputArray);
+            var comparer = new SortMaxElementDescendArray();
 
-            var outputMaxRowArray = MethodsForAlgorithms.SortSummDescendHelper(inputArray).Item2;
+            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
 
-            Assert.IsTrue(MethodsForAlgorithms.SortMaxElementDescendHelper(inputArray).Item1);
+            var outputMaxElementRowArray = HelperSort.SortMaxElementDescendHelper(inputArray).Item2;
+
+            Assert.IsTrue(HelperSort.SortMaxElementDescendHelper(inputArray).Item1);
         }
 
         /// <summary>
@@ -77,13 +87,15 @@ namespace UnitTestAlgorithms
         [Test]
         public void SortMinElementAscendArray_With_Valid_Data()
         {
-            var inputArray = MethodsForAlgorithms.GetJaggedArray();
+            var inputArray = HelperSort.GetJaggedArray();
 
-            MethodsForAlgorithms.SortMinElementAscendArray(inputArray);
+            var comparer = new SortMinElementAscendArray();
 
-            var outputMinRowArray = MethodsForAlgorithms.SortSummDescendHelper(inputArray).Item2;
+            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
 
-            Assert.IsTrue(MethodsForAlgorithms.SortMinElementAscendHelper(inputArray).Item1);
+            var outputMinElementRowArray = HelperSort.SortMinElementAscendHelper(inputArray).Item2;
+
+            Assert.IsTrue(HelperSort.SortMinElementAscendHelper(inputArray).Item1);
         }
 
         /// <summary>
@@ -92,62 +104,104 @@ namespace UnitTestAlgorithms
         [Test]
         public void SortMinElementDescendArray_With_Valid_Data()
         {
-            var inputArray = MethodsForAlgorithms.GetJaggedArray();
+            var inputArray = HelperSort.GetJaggedArray();
 
-            MethodsForAlgorithms.SortMinElementDescendArray(inputArray);
+            var comparer = new SortMinElementDescendArray();
 
-            var outputMinRowArray = MethodsForAlgorithms.SortSummDescendHelper(inputArray).Item2;
+            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
 
-            Assert.IsTrue(MethodsForAlgorithms.SortMinElementDescendHelper(inputArray).Item1);
+            var outputMinElementRowArray = HelperSort.SortMinElementDescendHelper(inputArray).Item2;
+
+            Assert.IsTrue(HelperSort.SortMinElementDescendHelper(inputArray).Item1);
         }
+
+        #endregion TestWithValidData
+
+        #region TestWithNotValidData
 
         /// <summary>
         /// Test to check for the occurrence of an exception ArgumentNullException 
         /// in method SortSummElementAscendArray if the referenced array reference refers to null.
         /// </summary>
-        [TestCase(null)]
-        public void SortSummElementAscendArray_Apected_ArgumentNullException(int[][] inputArray)
-            => Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.SortSummElementAscendArray(inputArray));
+        [Test]
+        public void SortSummElementAscendArray_Axpected_ArgumentNullException()
+        {
+            int[][] inputArray = null;
+
+            var comparer = new SortSummElementAscendArray();
+
+            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+        }
 
         /// <summary>
         /// Test to check for the occurrence of an exception ArgumentNullException 
         /// in method SortSummElementDescendArray if the referenced array reference refers to null.
         /// </summary>
-        [TestCase(null)]
-        public void SortSummElementDescendArray_Apected_ArgumentNullException(int[][] inputArray)
-            => Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.SortSummElementDescendArray(inputArray));
+        [Test]
+        public void SortSummElementDescendArray_Axpected_ArgumentNullException()
+        {
+            int[][] inputArray = null;
+
+            var comparer = new SortSummElementDescendArray();
+
+            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+        }
 
         /// <summary>
         /// Test to check for the occurrence of an exception ArgumentNullException 
         /// in method SortMaxElementAscendArray if the referenced array reference refers to null.
         /// </summary>
-        [TestCase(null)]
-        public void SortMaxElementAscendArray_Apected_ArgumentNullException(int[][] inputArray)
-            => Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.SortMaxElementAscendArray(inputArray));
+        [Test]
+        public void SortMaxElementAscendArray_Axpected_ArgumentNullException()
+        {
+            int[][] inputArray = null;
+
+            var comparer = new SortMaxElementAscendArray();
+
+            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+        }
 
         /// <summary>
         /// Test to check for the occurrence of an exception ArgumentNullException 
         /// in method SortMaxElementDescendArray if the referenced array reference refers to null.
         /// </summary>
-        [TestCase(null)]
-        public void SortMaxElementDescendArray_Apected_ArgumentNullException(int[][] inputArray)
-            => Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.SortMaxElementDescendArray(inputArray));
+        [Test]
+        public void SortMaxElementDescendArray_Axpected_ArgumentNullException()
+        {
+            int[][] inputArray = null;
+
+            var comparer = new SortMaxElementDescendArray();
+
+            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+        }
 
         /// <summary>
         /// Test to check for the occurrence of an exception ArgumentNullException 
         /// in method SortMinElementAscendArray if the referenced array reference refers to null.
         /// </summary>
-        [TestCase(null)]
-        public void SortMinElementAscendArray_Apected_ArgumentNullException(int[][] inputArray)
-            => Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.SortMinElementAscendArray(inputArray));
+        [Test]
+        public void SortMinElementAscendArray_Axpected_ArgumentNullException()
+        {
+            int[][] inputArray = null;
+
+            var comparer = new SortMinElementAscendArray();
+
+            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+        }
 
         /// <summary>
         /// Test to check for the occurrence of an exception ArgumentNullException 
         /// in method SortMinElementDescendArray if the referenced array reference refers to null.
         /// </summary>
-        [TestCase(null)]
-        public void SortMinElementDescendArray_Apected_ArgumentNullException(int[][] inputArray)
-            => Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.SortMinElementDescendArray(inputArray));
+        [Test]
+        public void SortMinElementDescendArray_Axpected_ArgumentNullException()
+        {
+            int[][] inputArray = null;
+
+            var comparer = new SortMinElementDescendArray();
+
+            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+        }
 
         /// <summary>
         /// Test SortSummElementAscendArray if expected OverflowException
@@ -175,7 +229,9 @@ namespace UnitTestAlgorithms
                 }
             }
 
-            Assert.Throws<OverflowException>(() => MethodsForAlgorithms.SortSummElementAscendArray(inputArray));
+            var comparer = new SortSummElementAscendArray();
+
+            Assert.Throws<OverflowException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
         }
 
         /// <summary>
@@ -203,8 +259,11 @@ namespace UnitTestAlgorithms
                     }
                 }
             }
+            var comparer = new SortSummElementDescendArray();
 
-            Assert.Throws<OverflowException>(() => MethodsForAlgorithms.SortSummElementDescendArray(inputArray));
+            Assert.Throws<OverflowException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
         }
+
+        #endregion
     }
 }

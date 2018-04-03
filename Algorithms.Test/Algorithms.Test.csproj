@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgorithmsForTasks.Test.cs" />
+    <Compile Include="Comparers.cs" />
+    <Compile Include="HelperSort.cs" />
     <Compile Include="Polynomial.Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Algorithms;
 
-namespace UnitTestAlgorithms
+namespace Algorithms.Test
 {
     /// <summary>
     /// Class for test Poly
