@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MethodsForAlgorithms.cs" />
+    <Compile Include="BubbleSortAcrossInterface.cs" />
+    <Compile Include="IComparerArray.cs" />
+    <Compile Include="BubbleSortAcrossDelegate.cs" />
     <Compile Include="Polynomial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

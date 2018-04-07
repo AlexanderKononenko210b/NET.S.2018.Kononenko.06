@@ -12,7 +12,7 @@ namespace Algorithms.Test
     /// <summary>
     /// Class for compare two array by increasing the sum of elements in a row
     /// </summary>
-    public class SortSummElementAscendArray : MethodsForAlgorithms.IComparerArray
+    public class SortSummElementAscendArray : IComparerArray
     {
         public int Compare(int[] arrayLeft, int[] arrayRight)
         {
@@ -35,7 +35,7 @@ namespace Algorithms.Test
     /// <summary>
     /// Class for compare two array by descending the sum of elements in a row
     /// </summary>
-    public class SortSummElementDescendArray : MethodsForAlgorithms.IComparerArray
+    public class SortSummElementDescendArray : IComparerArray
     {
         public int Compare(int[] arrayLeft, int[] arrayRight)
         {
@@ -58,7 +58,7 @@ namespace Algorithms.Test
     /// <summary>
     /// Class for compare two array by increasing max element in a row
     /// </summary>
-    public class SortMaxElementAscendArray : MethodsForAlgorithms.IComparerArray
+    public class SortMaxElementAscendArray : IComparerArray
     {
         public int Compare(int[] arrayLeft, int[] arrayRight)
         {
@@ -81,7 +81,7 @@ namespace Algorithms.Test
     /// <summary>
     /// Class for compare two array by descending max element in a row
     /// </summary>
-    public class SortMaxElementDescendArray : MethodsForAlgorithms.IComparerArray
+    public class SortMaxElementDescendArray : IComparerArray
     {
         public int Compare(int[] arrayLeft, int[] arrayRight)
         {
@@ -104,7 +104,7 @@ namespace Algorithms.Test
     /// <summary>
     /// Class for compare two array by increasing min element in a row
     /// </summary>
-    public class SortMinElementAscendArray : MethodsForAlgorithms.IComparerArray
+    public class SortMinElementAscendArray : IComparerArray
     {
         public int Compare(int[] arrayLeft, int[] arrayRight)
         {
@@ -127,7 +127,7 @@ namespace Algorithms.Test
     /// <summary>
     /// Class for compare two array by descending min element in a row
     /// </summary>
-    public class SortMinElementDescendArray : MethodsForAlgorithms.IComparerArray
+    public class SortMinElementDescendArray : IComparerArray
     {
         public int Compare(int[] arrayLeft, int[] arrayRight)
         {

@@ -5,24 +5,25 @@ using Algorithms;
 namespace Algorithms.Test
 {
     /// <summary>
-    /// Class for test sort jagged massive
+    /// Class for test sort jagged massive method bubble sort across intarface 
+    /// as input argument and subcall method with input argument as delegate
     /// </summary>
     [TestFixture]
-    public class AlgorithmsForTasks
+    public class SortWithInterface
     {
-        #region TestWithValidData
+        #region Test BubbleSortInterface with valid data
 
         /// <summary>
         /// Method for test method SortSummElementAscendArray with valid data
         /// </summary>
         [Test]
-        public void SortSummElementAscendArray_With_Valid_Data()
+        public void BubbleSortInterface_SortSummElementAscendArray_With_Valid_Data()
         {
             var inputArray = HelperSort.GetJaggedArray();
 
             var comparer =  new SortSummElementAscendArray();
 
-            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
+            BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer);
 
             var outputSummRowArray = HelperSort.SortSummAscendHelper(inputArray).Item2;
 
@@ -34,13 +35,13 @@ namespace Algorithms.Test
         /// </summary>
         /// 
         [Test]
-        public void SortSummElementDescendArray_With_Valid_Data()
+        public void BubbleSortInterface_SortSummElementDescendArray_With_Valid_Data()
         {
             var inputArray = HelperSort.GetJaggedArray();
 
             var comparer = new SortSummElementDescendArray();
 
-            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
+            BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer);
 
             var outputSummRowArray = HelperSort.SortSummDescendHelper(inputArray).Item2;
 
@@ -51,13 +52,13 @@ namespace Algorithms.Test
         /// Method for test method SortMaxElementAscendHelper with valid data
         /// </summary>
         [Test]
-        public void SortMaxElementAscendArray_With_Valid_Data()
+        public void BubbleSortInterface_SortMaxElementAscendArray_With_Valid_Data()
         {
             var inputArray = HelperSort.GetJaggedArray();
 
             var comparer = new SortMaxElementAscendArray();
 
-            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
+            BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer);
 
             var outputMaxElementRowArray = HelperSort.SortMaxElementAscendHelper(inputArray).Item2;
 
@@ -68,13 +69,13 @@ namespace Algorithms.Test
         /// Method for test method SortMaxElementDescendArray with valid data
         /// </summary>
         [Test]
-        public void SortMaxElementDescendArray_With_Valid_Data()
+        public void BubbleSortInterface_SortMaxElementDescendArray_With_Valid_Data()
         {
             var inputArray = HelperSort.GetJaggedArray();
 
             var comparer = new SortMaxElementDescendArray();
 
-            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
+            BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer);
 
             var outputMaxElementRowArray = HelperSort.SortMaxElementDescendHelper(inputArray).Item2;
 
@@ -85,13 +86,13 @@ namespace Algorithms.Test
         /// Method for test method SortMinElementAscendArray with valid data
         /// </summary>
         [Test]
-        public void SortMinElementAscendArray_With_Valid_Data()
+        public void BubbleSortInterface_SortMinElementAscendArray_With_Valid_Data()
         {
             var inputArray = HelperSort.GetJaggedArray();
 
             var comparer = new SortMinElementAscendArray();
 
-            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
+            BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer);
 
             var outputMinElementRowArray = HelperSort.SortMinElementAscendHelper(inputArray).Item2;
 
@@ -102,35 +103,35 @@ namespace Algorithms.Test
         /// Method for test method SortMinElementDescendArray with valid data
         /// </summary>
         [Test]
-        public void SortMinElementDescendArray_With_Valid_Data()
+        public void BubbleSortInterface_SortMinElementDescendArray_With_Valid_Data()
         {
             var inputArray = HelperSort.GetJaggedArray();
 
             var comparer = new SortMinElementDescendArray();
 
-            MethodsForAlgorithms.BubbleSort(inputArray, comparer);
+            BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer);
 
             var outputMinElementRowArray = HelperSort.SortMinElementDescendHelper(inputArray).Item2;
 
             Assert.IsTrue(HelperSort.SortMinElementDescendHelper(inputArray).Item1);
         }
 
-        #endregion TestWithValidData
+        #endregion Test BubbleSortInterface with valid data
 
-        #region TestWithNotValidData
+        #region Test BubbleSortInterface with not valid data
 
         /// <summary>
         /// Test to check for the occurrence of an exception ArgumentNullException 
         /// in method SortSummElementAscendArray if the referenced array reference refers to null.
         /// </summary>
         [Test]
-        public void SortSummElementAscendArray_Axpected_ArgumentNullException()
+        public void BubbleSortInterface_SortSummElementAscendArray_Axpected_ArgumentNullException()
         {
             int[][] inputArray = null;
 
             var comparer = new SortSummElementAscendArray();
 
-            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
         /// <summary>
@@ -138,13 +139,13 @@ namespace Algorithms.Test
         /// in method SortSummElementDescendArray if the referenced array reference refers to null.
         /// </summary>
         [Test]
-        public void SortSummElementDescendArray_Axpected_ArgumentNullException()
+        public void BubbleSortInterface_SortSummElementDescendArray_Axpected_ArgumentNullException()
         {
             int[][] inputArray = null;
 
             var comparer = new SortSummElementDescendArray();
 
-            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
         /// <summary>
@@ -152,13 +153,13 @@ namespace Algorithms.Test
         /// in method SortMaxElementAscendArray if the referenced array reference refers to null.
         /// </summary>
         [Test]
-        public void SortMaxElementAscendArray_Axpected_ArgumentNullException()
+        public void BubbleSortInterface_SortMaxElementAscendArray_Axpected_ArgumentNullException()
         {
             int[][] inputArray = null;
 
             var comparer = new SortMaxElementAscendArray();
 
-            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
         /// <summary>
@@ -166,13 +167,13 @@ namespace Algorithms.Test
         /// in method SortMaxElementDescendArray if the referenced array reference refers to null.
         /// </summary>
         [Test]
-        public void SortMaxElementDescendArray_Axpected_ArgumentNullException()
+        public void BubbleSortInterface_SortMaxElementDescendArray_Axpected_ArgumentNullException()
         {
             int[][] inputArray = null;
 
             var comparer = new SortMaxElementDescendArray();
 
-            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
         /// <summary>
@@ -180,13 +181,13 @@ namespace Algorithms.Test
         /// in method SortMinElementAscendArray if the referenced array reference refers to null.
         /// </summary>
         [Test]
-        public void SortMinElementAscendArray_Axpected_ArgumentNullException()
+        public void BubbleSortInterface_SortMinElementAscendArray_Axpected_ArgumentNullException()
         {
             int[][] inputArray = null;
 
             var comparer = new SortMinElementAscendArray();
 
-            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
         /// <summary>
@@ -194,20 +195,20 @@ namespace Algorithms.Test
         /// in method SortMinElementDescendArray if the referenced array reference refers to null.
         /// </summary>
         [Test]
-        public void SortMinElementDescendArray_Axpected_ArgumentNullException()
+        public void BubbleSortInterface_SortMinElementDescendArray_Axpected_ArgumentNullException()
         {
             int[][] inputArray = null;
 
             var comparer = new SortMinElementDescendArray();
 
-            Assert.Throws<ArgumentNullException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
         /// <summary>
         /// Test SortSummElementAscendArray if expected OverflowException
         /// </summary>
         [Test]
-        public void SortSummElementAscendArray_Apected_OverflowException()
+        public void BubbleSortInterface_SortSummElementAscendArray_Apected_OverflowException()
         {
             Random random = new Random();
             int lengthRow = 100;
@@ -231,14 +232,14 @@ namespace Algorithms.Test
 
             var comparer = new SortSummElementAscendArray();
 
-            Assert.Throws<OverflowException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<OverflowException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
         /// <summary>
         /// Test SortSummElementAscendArray if expected OverflowException
         /// </summary>
         [Test]
-        public void SortSummElementDescendArray_Apected_OverflowException()
+        public void BubbleSortInterface_SortSummElementDescendArray_Apected_OverflowException()
         {
             Random random = new Random();
             int lengthRow = 100;
@@ -261,9 +262,9 @@ namespace Algorithms.Test
             }
             var comparer = new SortSummElementDescendArray();
 
-            Assert.Throws<OverflowException>(() => MethodsForAlgorithms.BubbleSort(inputArray, comparer));
+            Assert.Throws<OverflowException>(() => BubbleSortAcrossInterface.BubbleSortInterface(inputArray, comparer));
         }
 
-        #endregion
+        #endregion Test BubbleSortInterface with not valid data
     }
 }

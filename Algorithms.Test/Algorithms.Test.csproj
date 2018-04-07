@@ -53,7 +53,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlgorithmsForTasks.Test.cs" />
+    <Compile Include="SortWithInterface.Test.cs" />
     <Compile Include="Comparers.cs" />
     <Compile Include="HelperSort.cs" />
     <Compile Include="Polynomial.Test.cs" />
@@ -62,6 +62,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Settings.StyleCop" />
+    <Compile Include="SortWithDelegate.Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Algorithms\Algorithms.csproj">
