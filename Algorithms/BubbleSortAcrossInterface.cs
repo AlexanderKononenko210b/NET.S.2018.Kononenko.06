@@ -14,8 +14,6 @@ namespace Algorithms
     {
         #region SortJaggedArray
 
-        public delegate int ComparerDelegate(int[] first, int[] second);
-
         /// <summary>
         /// Method for bubble sort input array
         /// </summary>
@@ -38,11 +36,9 @@ namespace Algorithms
                 throw new ArgumentOutOfRangeException($"Argument`s {nameof(inputArray)} length is 0");
             }
 
-            var methodInfo = comparer.GetType().GetMethod("Compare");
+            Func<int[], int[], int> delegateInput = comparer.Compare;
 
-            var delegat = (ComparerDelegate)Delegate.CreateDelegate(typeof(ComparerDelegate), null, methodInfo);
-
-            BubbleSortDelegate(inputArray, delegat);
+            BubbleSortDelegate(inputArray, delegateInput);
         }
 
         /// <summary>
@@ -50,7 +46,7 @@ namespace Algorithms
         /// </summary>
         /// <param name="inputArray">input array</param>
         /// <param name="comparer">object for compare two array</param>
-        public static void BubbleSortDelegate(int[][] inputArray, ComparerDelegate delegateInput)
+        public static void BubbleSortDelegate(int[][] inputArray, Func<int[], int[], int> delegateInput)
         {
             int depthSort = inputArray.GetLength(0);
 

@@ -12,8 +12,6 @@ namespace Algorithms
     {
         #region SortJaggedArray
 
-        public delegate int ComparerDelegate(int[] first, int[] second);
-
         /// <summary>
         /// Method for bubble sort input array using interface
         /// </summary>
@@ -42,7 +40,7 @@ namespace Algorithms
         /// </summary>
         /// <param name="inputArray">input array</param>
         /// <param name="comparer">object for compare two array</param>
-        public static void BubbleSortDelegate(int[][] inputArray, ComparerDelegate delegateInput)
+        public static void BubbleSortDelegate(int[][] inputArray, Func<int[], int[], int> delegateInput)
         {
             if (inputArray == null)
             {
@@ -59,9 +57,9 @@ namespace Algorithms
                 throw new ArgumentOutOfRangeException($"Argument`s {nameof(inputArray)} length is 0");
             }
 
-            var obj = (IComparerArray)delegateInput.Target;
+            
 
-            BubbleSortInterface(inputArray, obj);
+            BubbleSortInterface(inputArray, new Adaptor(delegateInput));
         }
 
         /// <summary>
@@ -76,6 +74,24 @@ namespace Algorithms
             left = right;
 
             right = helper;
+        }
+
+        /// <summary>
+        /// Class adaptor delegate => IComparerArray
+        /// </summary>
+        private class Adaptor : IComparerArray
+        {
+            private Func<int[], int[], int> delegateInput;
+
+            public Adaptor(Func<int[], int[], int> delegateInput)
+            {
+                this.delegateInput = delegateInput;
+            }
+
+            public int Compare(int[] arrayLeft, int[] arrayRight)
+            {
+                return delegateInput.Invoke(arrayLeft, arrayRight);
+            }
         }
 
         #endregion SortJaggedArray

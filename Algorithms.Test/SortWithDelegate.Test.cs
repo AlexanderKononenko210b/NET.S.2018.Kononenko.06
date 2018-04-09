@@ -20,9 +20,9 @@ namespace Algorithms.Test
         {
             var inputArray = HelperSort.GetJaggedArray();
 
-            var comparer = new SortSummElementAscendArray();
+            var comparer = new SortSummElementAscendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput);
 
@@ -40,9 +40,9 @@ namespace Algorithms.Test
         {
             var inputArray = HelperSort.GetJaggedArray();
 
-            var comparer = new SortSummElementDescendArray();
+            var comparer = new SortSummElementDescendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput);
 
@@ -59,9 +59,9 @@ namespace Algorithms.Test
         {
             var inputArray = HelperSort.GetJaggedArray();
 
-            var comparer = new SortMaxElementAscendArray();
+            var comparer = new SortMaxElementAscendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput);
 
@@ -78,9 +78,9 @@ namespace Algorithms.Test
         {
             var inputArray = HelperSort.GetJaggedArray();
 
-            var comparer = new SortMaxElementDescendArray();
+            var comparer = new SortMaxElementDescendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput);
 
@@ -97,9 +97,9 @@ namespace Algorithms.Test
         {
             var inputArray = HelperSort.GetJaggedArray();
 
-            var comparer = new SortMinElementAscendArray();
+            var comparer = new SortMinElementAscendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput);
 
@@ -116,9 +116,9 @@ namespace Algorithms.Test
         {
             var inputArray = HelperSort.GetJaggedArray();
 
-            var comparer = new SortMinElementDescendArray();
+            var comparer = new SortMinElementDescendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput);
 
@@ -140,9 +140,9 @@ namespace Algorithms.Test
         {
             int[][] inputArray = null;
 
-            var comparer = new SortSummElementAscendArray();
+            var comparer = new SortSummElementAscendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
@@ -156,9 +156,9 @@ namespace Algorithms.Test
         {
             int[][] inputArray = null;
 
-            var comparer = new SortSummElementDescendArray();
+            var comparer = new SortSummElementDescendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
@@ -172,9 +172,9 @@ namespace Algorithms.Test
         {
             int[][] inputArray = null;
 
-            var comparer = new SortMaxElementAscendArray();
+            var comparer = new SortMaxElementAscendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
@@ -188,9 +188,9 @@ namespace Algorithms.Test
         {
             int[][] inputArray = null;
 
-            var comparer = new SortMaxElementDescendArray();
+            var comparer = new SortMaxElementDescendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
@@ -204,9 +204,9 @@ namespace Algorithms.Test
         {
             int[][] inputArray = null;
 
-            var comparer = new SortMinElementAscendArray();
+            var comparer = new SortMinElementAscendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
@@ -220,9 +220,9 @@ namespace Algorithms.Test
         {
             int[][] inputArray = null;
 
-            var comparer = new SortMinElementDescendArray();
+            var comparer = new SortMinElementDescendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<ArgumentNullException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
@@ -253,9 +253,9 @@ namespace Algorithms.Test
                 }
             }
 
-            var comparer = new SortSummElementAscendArray();
+            var comparer = new SortSummElementAscendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<OverflowException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
@@ -285,9 +285,9 @@ namespace Algorithms.Test
                     }
                 }
             }
-            var comparer = new SortSummElementDescendArray();
+            var comparer = new SortSummElementDescendArrayWithoutInterface();
 
-            BubbleSortAcrossDelegate.ComparerDelegate delegatInput = new BubbleSortAcrossDelegate.ComparerDelegate(comparer.Compare);
+            Func<int[], int[], int> delegatInput = comparer.Compare;
 
             Assert.Throws<OverflowException>(() => BubbleSortAcrossDelegate.BubbleSortDelegate(inputArray, delegatInput));
         }
